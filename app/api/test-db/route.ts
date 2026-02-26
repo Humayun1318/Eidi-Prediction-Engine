@@ -1,8 +1,9 @@
 // app/api/test-db/route.ts
 import { NextResponse } from "next/server";
-// import { connectToDatabase, getConnectionStatus } from "@/lib/db/mongodb";
 import { Prediction } from "@/lib/db/models/Prediction";
-import connectToDatabase, { getConnectionStatus } from "@/lib/db/mongodb";
+import { connectToDatabase, getConnectionStatus } from "@/lib/db/mongodb";
+
+
 
 export async function GET() {
   try {
@@ -13,6 +14,7 @@ export async function GET() {
     const db = await connectToDatabase();
     console.log('✅ Database connection successful', db.connection?.name || 'unknown');
     const endTime = Date.now();
+    // console.log('Connection time:', db);
 
     // Get connection status
     const status = getConnectionStatus();

@@ -9,13 +9,13 @@ import mongoose from "mongoose";
 import ShareCard from "@/app/_components/ShareCard";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function SharePage({ params }: PageProps) {
-  const id = params.id;
+  const { id } = await params;
 
   // Validate ID format
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -25,7 +25,7 @@ export default async function SharePage({ params }: PageProps) {
   await connectToDatabase();
 
   // Don't increment views here (API will handle that)
-  const prediction = await Prediction.findById(id);
+  const prediction = await Prediction.findById(id).lean();
 
   if (!prediction) {
     notFound();

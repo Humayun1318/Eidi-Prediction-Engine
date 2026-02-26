@@ -6,14 +6,15 @@ import { PredictionData } from "@/lib/types";
 import mongoose from "mongoose";
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    const id = params.id;
+    const { id } = await params;
+    console.log("Received request for prediction ID:", id);
 
     // Validate ID format
     if (!mongoose.Types.ObjectId.isValid(id)) {

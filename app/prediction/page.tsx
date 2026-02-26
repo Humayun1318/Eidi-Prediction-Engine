@@ -16,6 +16,8 @@ function PredictionContent() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
+  // console.log("Fetching prediction with ID:", id, prediction);
+
   useEffect(() => {
     if (!id) {
       router.push("/");
@@ -24,6 +26,7 @@ function PredictionContent() {
 
     const fetchPrediction = async () => {
       try {
+        console.log("Fetching prediction with ID:", id);
         const response = await fetch(`/api/share/${id}`);
         const result = await response.json();
 
@@ -92,7 +95,7 @@ function PredictionContent() {
     })),
     prediction.totalPrediction,
   );
-
+  console.log("Fetching prediction with ID:", id, prediction);
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white px-4 py-8 relative overflow-x-hidden">
       {/* Background elements */}
@@ -197,6 +200,7 @@ function PredictionContent() {
             onClick={() => {
               const shareUrl = `${window.location.origin}/share/${id}`;
               navigator.clipboard.writeText(shareUrl);
+              console.log("Share link copied to clipboard:", shareUrl);
               alert("Share link copied! 📋");
             }}
             className="flex-1 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"

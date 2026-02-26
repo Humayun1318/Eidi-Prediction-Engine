@@ -9,6 +9,7 @@ import {
 import { generateDramaMessage } from "@/lib/emotionalDamage";
 import { Relative, PredictionResult } from "@/lib/types";
 
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
